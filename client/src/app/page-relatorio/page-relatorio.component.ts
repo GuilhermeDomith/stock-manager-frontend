@@ -34,7 +34,7 @@ export class PageRelatorioComponent implements OnInit {
   }
 
   sortByDataTermino(){
-    this.produtos.sort((a, b) => a.data_termino.localeCompare(b.data_termino));
+    this.produtos.sort((a, b) => (a.data_termino < b.data_termino)? -1 : 1);
   }
 
 }

@@ -4,4 +4,5 @@ export interface Produto {
     quantidade:number,
     quantidade_add?:number,
     data_update:Date,
+    data_termino?:Date
 }

@@ -16,7 +16,8 @@ import { DatePipe } from '@angular/common';
 export class PageBalancoComponent implements OnInit {
 
   simpleReqProdutos : Observable<Produto[]>
-  columnsTableProdutos : String[] = ["descricao", "quantidade", "quantidade_add", "action"]
+  produtos
+  columnsTableProdutos : String[] = ["descricao", "data", "quantidade", "quantidade_add", "action"]
   date_format="yyyyMMdd"
 
   constructor(
@@ -26,10 +27,16 @@ export class PageBalancoComponent implements OnInit {
   
   ngOnInit(){
     this.simpleReqProdutos = this.produtoService.getProdutos()
+
+    this.simpleReqProdutos.subscribe((produtos) => {
+      this.produtos = produtos
+      for(let p of this.produtos){
+        p.data_update = this.getDataAtual()
+      }
+    })
   }
 
   realizarBalanco(produto){
-    produto.data_update = this.getDataAtual()
     produto.quantidade_add = produto.quantidade_add || 0
 
     this.produtoService.realizarBalanco(produto).subscribe((res)=>{
